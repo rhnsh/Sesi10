@@ -4,9 +4,9 @@ const db =  require('../models/db.js');
 
 // GET /mahasiswa
 router.get('/', (req, res) => {
-    db.query('SELECT * FROM mahasiswa', (erorr, results) => {
-        if (erorr) {
-            console.error('Erorr fetching mahasiswa:', erorr);
+    db.query('SELECT * FROM mahasiswa', (error, results) => {
+        if (error) {
+            console.error('Erorr fetching mahasiswa:', error);
             res.status(500).json({massage: 'Internal Server Erorr'});
         } else {
             res.json(results);
@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
 router.get('/:nim', (req, res) => {
     const mahasiswaId = req.params.nim;
     
-    db.query('SELECT * FROM mahasiswa WHERE nim = ?', [mahasiswaId], (erorr, results) => {
-        if (erorr) {
-            console.error('Erorr fetching mahasiswa:', erorr);
+    db.query('SELECT * FROM mahasiswa WHERE nim = ?', [mahasiswaId], (error, results) => {
+        if (error) {
+            console.error('Erorr fetching mahasiswa:', error);
             res.status(500).json({massage: 'Internal Server Erorr'});
         } else if (results.length === 0) {
             res.status(404).json({massage: 'Mahasiswa not found'});
@@ -35,9 +35,9 @@ router.put('/:nim', (req, res) => {
     const mahasiswaNim = req.params.nim;
     const {nama, gender, prodi, alamat} = req.body;
     
-    db.query('UPDATE mahasiswa SET nama = ?, gender = ?, prodi = ?, alamat = ? WHERE nim = ?', [nama, gender, prodi, alamat, mahasiswaNim], (erorr) => {
-        if (erorr) {
-            console.error('Erorr updating mahasiswa:', erorr);
+    db.query('UPDATE mahasiswa SET nama = ?, gender = ?, prodi = ?, alamat = ? WHERE nim = ?', [nama, gender, prodi, alamat, mahasiswaNim], (error) => {
+        if (error) {
+            console.error('Erorr updating mahasiswa:', error);
             res.status(500).json({massage: 'Internal Server Erorr'});
         } else {
             res.json("Updating mahasiswa Successfullys");
